@@ -12,11 +12,11 @@
 		6C5A0AFB1CB745D1008F7948 /* ImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C5A0AFA1CB745D1008F7948 /* ImageHeaderView.xib */; };
 		6C5A0AFD1CB74BDC008F7948 /* DataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C5A0AFC1CB74BDC008F7948 /* DataTableViewCell.xib */; };
 		6C5A0AFF1CB75324008F7948 /* SubContentsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C5A0AFE1CB75324008F7948 /* SubContentsViewController.storyboard */; };
+		6C5A0B031CB7993E008F7948 /* SlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5A0B021CB7993E008F7948 /* SlideMenuController.m */; };
 		6C99A89D1C81EFD400135ADD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A89C1C81EFD400135ADD /* main.m */; };
 		6C99A8A01C81EFD400135ADD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A89F1C81EFD400135ADD /* AppDelegate.m */; };
 		6C99A8A31C81EFD400135ADD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A8A21C81EFD400135ADD /* ViewController.m */; };
 		6C99A8A81C81EFD400135ADD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C99A8A71C81EFD400135ADD /* Assets.xcassets */; };
-		6C99A8BD1C81F32E00135ADD /* SlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A8BC1C81F32E00135ADD /* SlideMenuController.m */; };
 		6C99A8F71C836DB500135ADD /* UIApplication+SlideMenuControllerOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A8E01C836DB500135ADD /* UIApplication+SlideMenuControllerOC.m */; };
 		6C99A8F81C836DB500135ADD /* UITableView+SlideMenuControllerOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A8E21C836DB500135ADD /* UITableView+SlideMenuControllerOC.m */; };
 		6C99A8F91C836DB500135ADD /* ExSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C99A8E51C836DB500135ADD /* ExSlideMenuController.m */; };
@@ -44,6 +44,8 @@
 		6C5A0AFA1CB745D1008F7948 /* ImageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImageHeaderView.xib; path = View/ImageHeaderView.xib; sourceTree = "<group>"; };
 		6C5A0AFC1CB74BDC008F7948 /* DataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DataTableViewCell.xib; path = View/TableViewCell/DataTableViewCell.xib; sourceTree = "<group>"; };
 		6C5A0AFE1CB75324008F7948 /* SubContentsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SubContentsViewController.storyboard; sourceTree = "<group>"; };
+		6C5A0B011CB7993E008F7948 /* SlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuController.h; sourceTree = "<group>"; };
+		6C5A0B021CB7993E008F7948 /* SlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenuController.m; sourceTree = "<group>"; };
 		6C99A8981C81EFD400135ADD /* SlideMenuControllerOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideMenuControllerOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C99A89C1C81EFD400135ADD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C99A89E1C81EFD400135ADD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -52,8 +54,6 @@
 		6C99A8A21C81EFD400135ADD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6C99A8A71C81EFD400135ADD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C99A8AC1C81EFD400135ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C99A8BB1C81F32E00135ADD /* SlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuController.h; sourceTree = "<group>"; };
-		6C99A8BC1C81F32E00135ADD /* SlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenuController.m; sourceTree = "<group>"; };
 		6C99A8DF1C836DB500135ADD /* UIApplication+SlideMenuControllerOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+SlideMenuControllerOC.h"; sourceTree = "<group>"; };
 		6C99A8E01C836DB500135ADD /* UIApplication+SlideMenuControllerOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+SlideMenuControllerOC.m"; sourceTree = "<group>"; };
 		6C99A8E11C836DB500135ADD /* UITableView+SlideMenuControllerOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SlideMenuControllerOC.h"; sourceTree = "<group>"; };
@@ -106,10 +106,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C5A0B001CB7993E008F7948 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				6C5A0B011CB7993E008F7948 /* SlideMenuController.h */,
+				6C5A0B021CB7993E008F7948 /* SlideMenuController.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		6C99A88F1C81EFD400135ADD = {
 			isa = PBXGroup;
 			children = (
-				6C99A8BA1C81F32E00135ADD /* Source */,
+				6C5A0B001CB7993E008F7948 /* Source */,
 				6C99A89A1C81EFD400135ADD /* SlideMenuControllerOC */,
 				6C99A8991C81EFD400135ADD /* Products */,
 			);
@@ -149,16 +158,6 @@
 				6CFEDBBE1CA990C800D01344 /* SlideMenuControllerOC_Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		6C99A8BA1C81F32E00135ADD /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				6C99A8BB1C81F32E00135ADD /* SlideMenuController.h */,
-				6C99A8BC1C81F32E00135ADD /* SlideMenuController.m */,
-			);
-			name = Source;
-			path = SlideMenuControllerOC/Source;
 			sourceTree = "<group>";
 		};
 		6C99A8DE1C836DB500135ADD /* Category */ = {
@@ -307,9 +306,9 @@
 				6C99A8FD1C836DB500135ADD /* MainViewController.m in Sources */,
 				6C99A8A31C81EFD400135ADD /* ViewController.m in Sources */,
 				6C99A9021C836DB500135ADD /* SwiftViewController.m in Sources */,
+				6C5A0B031CB7993E008F7948 /* SlideMenuController.m in Sources */,
 				6CFEDBC61CA9920700D01344 /* DataTableViewCell.m in Sources */,
 				6C99A8FC1C836DB500135ADD /* LeftViewController.m in Sources */,
-				6C99A8BD1C81F32E00135ADD /* SlideMenuController.m in Sources */,
 				6C99A90B1C8370FB00135ADD /* UIImage+SlideMenuController.m in Sources */,
 				6C99A8FA1C836DB500135ADD /* GoViewController.m in Sources */,
 				6C99A8FF1C836DB500135ADD /* RightViewController.m in Sources */,
