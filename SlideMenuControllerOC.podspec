@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         	  = "SlideMenuControllerOC"
-  s.version      	  = "1.0.0"
+  s.version      	  = "1.0.1"
   s.summary      	  = "iOS Slide View based on iQON, Feedly, Google+, Ameba iPhone app."
   s.homepage     	  = "https://github.com/Pluto-Y/SlideMenuControllerOC"
   s.license     	  = { :type => "MIT", :file => "LICENSE" }
