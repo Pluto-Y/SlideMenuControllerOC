@@ -1,0 +1,19 @@
+//
+//  SlideMenuControllerOC_Prefix.pch
+//  SlideMenuControllerOC
+//
+//  Created by ChipSea on 16/3/29.
+//  Copyright © 2016年 pluto-y. All rights reserved.
+//
+
+#ifndef SlideMenuControllerOC_Prefix_pch
+#define SlideMenuControllerOC_Prefix_pch
+
+#import "UIColor+SlideMenuControllerOC.h"
+#import "UIImageView+SlideMenuControllerOC.h"
+#import "UITableView+SlideMenuControllerOC.h"
+#import "UIViewController+SlideMenuControllerOC.h"
+#import "UIView+SlideMenuController.h"
+#import "SLideMenuController.h"
+
+#endif /* SlideMenuControllerOC_Prefix_pch */
