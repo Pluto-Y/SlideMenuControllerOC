@@ -33,9 +33,32 @@ typedef enum {
 
 @end
 
+@interface SlideMenuOption : NSObject
+
+@property (assign, nonatomic) CGFloat leftViewWitdth;
+@property (assign, nonatomic) CGFloat leftBezelWidth;
+@property (assign, nonatomic) CGFloat contentViewScale;
+@property (assign, nonatomic) CGFloat contentViewOpacity;
+@property (assign, nonatomic) CGFloat shadowOpacity;
+@property (assign, nonatomic) CGFloat shadowRadius;
+@property (assign, nonatomic) CGSize shadowOffset;
+@property (assign, nonatomic) BOOL panFromBezel;
+@property (assign, nonatomic) CGFloat animationDuration;
+@property (assign, nonatomic) CGFloat rightViewWidth;
+@property (assign, nonatomic) CGFloat rightBezelWidth;
+@property (assign, nonatomic) BOOL rightPanFromBezel;
+@property (assign, nonatomic) BOOL hideStatusBar;
+@property (assign, nonatomic) CGFloat pointOfNoReturnWidth;
+@property (assign, nonatomic) BOOL simultaneousGestureRecognizers;
+@property (retain, nonatomic) UIColor *opacityViewBackgroundColor;
+
+@end
+
 @interface SlideMenuController : UIViewController<UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) id<SlideMenuControllerDelegate> delegate;
+
+@property (retain, nonatomic) SlideMenuOption *option;
 
 @property (retain, nonatomic) UIView *opacityView;
 @property (retain, nonatomic) UIView *mainContainerView;
@@ -45,9 +68,9 @@ typedef enum {
 @property (retain, nonatomic) UITapGestureRecognizer *leftTapGesture;
 @property (retain, nonatomic) UIPanGestureRecognizer *rightPanGesture;
 @property (retain, nonatomic) UITapGestureRecognizer *rightTapGesture;
-@property (retain, nonatomic, readonly) UIViewController *mainViewController;
-@property (retain, nonatomic, readonly) UIViewController *leftViewController;
-@property (retain, nonatomic, readonly) UIViewController *rightViewController;
+@property (retain, nonatomic) UIViewController *mainViewController;
+@property (retain, nonatomic) UIViewController *leftViewController;
+@property (retain, nonatomic) UIViewController *rightViewController;
 
 
 -(instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController;

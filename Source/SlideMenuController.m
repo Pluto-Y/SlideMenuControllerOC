@@ -19,27 +19,6 @@ struct PanInfo {
     CGFloat velocity;
 };
 
-@interface SlideMenuOption : NSObject
-
-@property (assign, nonatomic) CGFloat leftViewWitdth;
-@property (assign, nonatomic) CGFloat leftBezelWidth;
-@property (assign, nonatomic) CGFloat contentViewScale;
-@property (assign, nonatomic) CGFloat contentViewOpacity;
-@property (assign, nonatomic) CGFloat shadowOpacity;
-@property (assign, nonatomic) CGFloat shadowRadius;
-@property (assign, nonatomic) CGSize shadowOffset;
-@property (assign, nonatomic) BOOL panFromBezel;
-@property (assign, nonatomic) CGFloat animationDuration;
-@property (assign, nonatomic) CGFloat rightViewWidth;
-@property (assign, nonatomic) CGFloat rightBezelWidth;
-@property (assign, nonatomic) BOOL rightPanFromBezel;
-@property (assign, nonatomic) BOOL hideStatusBar;
-@property (assign, nonatomic) CGFloat pointOfNoReturnWidth;
-@property (assign, nonatomic) BOOL simultaneousGestureRecognizers;
-@property (retain, nonatomic) UIColor *opacityViewBackgroundColor;
-
-@end
-
 @implementation SlideMenuOption
 
 
@@ -187,6 +166,14 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     
     [self addLeftGestures];
     [self addRightGestures];
+}
+
+-(SlideMenuOption *)getOption {
+    return options;
+}
+
+-(void)setOption:(SlideMenuOption *)option {
+    options = option;
 }
 
 
