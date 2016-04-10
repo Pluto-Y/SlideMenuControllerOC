@@ -3,57 +3,50 @@ SlideMenuControllerSwift
 
 [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
-[![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
+[![Language](http://img.shields.io/badge/language-ObjectiveC-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
 [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
 )](http://mit-license.org)
-[![Issues](https://img.shields.io/github/issues/dekatotoro/SlideMenuControllerSwift.svg?style=flat
+[![Issues](https://img.shields.io/github/issues/Pluto-Y/SlideMenuControllerOC.svg?style=flat
 )](https://github.com/dekatotoro/SlideMenuControllerSwift/issues?state=open)
 
+___
 
+This project is inspired by the popular [SlideMenuControllerSwift](https://github.com/dekatotoro/SlideMenuControllerSwift).It provides someone who just developed and someone who needs to support iOS7 even iOS6. And this poroject will be synchronizes with `SlideMenuControllerSwift`.
 
 iOS Slide View based on iQON, Feedly, Google+, Ameba iPhone app.
 
 ![sample](Screenshots/SlideMenuControllerSwift3.gif)
-
+___
 ##Installation
 
 ####CocoaPods
 ```
-pod 'SlideMenuControllerSwift'
+pod 'SlideMenuControllerOC'
 ```
-  
-####Carthage
-
-if iOS8 or later, Carthage is supported
-
-* Add `github "dekatotoro/SlideMenuControllerSwift"` to your Cartfile.
-* Run `carthage update`.
-
-for more info, see [Carthage](https://github.com/carthage/carthage)
 
 ####Manually
-Add the `SlideMenuController.swift` file to your project. 
-
+Add the `SlideMenuController.h` and `SlideMenuController.m` file to your project. 
+___
 ##Usage
 
 ###Setup
 
-Add `import SlideMenuControllerSwift` in your file
+Add `#import "SlideMenuController.h"` in your file
 
 In your app delegate:
 
-```swift
+```objective-c
 
-func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     // create viewController code...
         
-    let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-    self.window?.rootViewController = slideMenuController
-    self.window?.makeKeyAndVisible()    
+    SlideMenuController *slideMenuController = [[SlideMenuController alloc] initWithMainViewController:nvc leftMenuViewController:leftViewController rightMenuViewController:rightViewController];
+    self.window.rootViewController = slideMenuController;
+    [self.window makeKeyWindow];
 
-    return true
+    return YES;
 }
 ```
 
@@ -62,80 +55,100 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 1. Inherit `SlideMenuController` and put UIViewController in a storyboard.
 2. Override `awakeFromNib`, then instantiate any view controllers
 
-```
-class ContainerViewController: SlideMenuController {
+```objective-c
+@implementation ContainerViewController: SlideMenuController
 
-    override func awakeFromNib() {
-        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Main") {
-            self.mainViewController = controller
-        }
-        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Left") {
-            self.leftViewController = controller
-        }
-        super.awakeFromNib()
+-(void)awakeFromNib {
+    UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
+    if (controller != nil) {
+        self.mainViewController = controller;
     }
-
+    UIViewController *leftMenu = [self.storyboard instantiateViewControllerWithIdentifier:@"Left"];
+    if (leftMenu != nil) {
+        self.leftViewController = controller;
+    }
+    [super awakeFromNib];
 }
+
+@end
 ```
 
-If you want to use the custom option, please set them before calling the init method, like so:
+If you want to use the custom option, please set them by the instance properties, like so:
+> Note: This is difference from `SlideMenuControllerSwift`.
 
-```swift
-SlideMenuOptions.leftViewWidth = 50
-SlideMenuOptions.contentViewScale = .50
+```objective-c
+self.slideMenuController.option.leftViewWitdth = 50;
+self.slideMenuController.option.contentViewScale = 0.5;
 ...
     
 ```
 
 ###You can access from UIViewController
 
-```swift
-self.slideMenuController()?
+```objective-c
+self.slideMenuController
 ```
 or
-```swift
-if let slideMenuController = self.slideMenuController() {
+```objective-c
+SlideMenuController *slideMenuController = self.slideMenuController;
+if (slideMenuController != nil) {
     // some code
 }
 ```
 ### add navigationBarButton 
-```swift
-viewController.addLeftBarButtonWithImage(UIImage(named: "hoge")!)
-viewController.addRightBarButtonWithImage(UIImage(named: "fuga")!)
+```objective-c
+[viewController addLeftBarButtonWithImage:[UIImage imageNamed:@"hoge"]];
+[viewController addRightBarButtonWithImage:[UIImage imageNamed:@"hoge"]];
 ```
 
 ### open and close
-```swift
+```objective-c
 // Open
-self.slideMenuController()?.openLeft()
-self.slideMenuController()?.openRight()
+[self.slideMenuController openLeft];
+[self.slideMenuController openRight];
 
 // close
-self.slideMenuController()?.closeLeft()
-self.slideMenuController()?.closeRight()
+[self.slideMenuController closeLeft];
+[self.slideMenuController closeRight];
 ```
 
-## Requirements
-Requires Swift2.0 and iOS 8.0 and ARC.  
-If you are developing in the swift1.1, please use branch of swift1.1.  
-If you are developing in the swift1.2, please use branch of swift1.2. 
-If you are developing in the swift2.1, please use branch of swift2.1. 
-If you want to use even iOS7.0, please to import the code directly.  
+### You can monitor the menu state by `SlideMenuControllerDelegate`, something like this
 
+```objective-c
+-(void)leftWillOpen;
+-(void)leftDidOpen;
+-(void)leftWillClose;
+-(void)leftDidClose;
+-(void)rightWillOpen;
+-(void)rightDidOpen;
+-(void)rightWillClose;
+-(void)rightDidClose;
+```
+___
+## Requirements
+Requires iOS 7.0 and ARC.  
+If you are developing in the swift and iOS 8.0 and upper, you can use [SlideMenuControllerSwift](https://github.com/dekatotoro/SlideMenuControllerSwift).
+___
 ## Features
 - Highly customizable
 - Complete example
 
-
+___
 ## Contributing
 
 Forks, patches and other feedback are welcome.
-
+___
 ## Creator
+### SlideMenuControllerOC
+[Pluto Y - Blog](http://www.pluto-y.com)
+[Sina Weibo](http://weibo.com/plutoy0504)
 
+### SlideMenuControllerSwift
 [Yuji Hato](https://github.com/dekatotoro) 
 [Blog](http://buzzmemo.blogspot.jp/)
 
 ## License
 
-SlideMenuControllerSwift is available under the MIT license. See the LICENSE file for more info.
+SlideMenuControllerOC is available under the MIT license. See the LICENSE file for more info.
+
+
