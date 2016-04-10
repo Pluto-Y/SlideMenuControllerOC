@@ -1,4 +1,4 @@
-SlideMenuControllerSwift
+SlideMenuControllerOC
 ========================
 
 [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
@@ -141,14 +141,15 @@ ___
 ## Creator
 ### SlideMenuControllerOC
 [Pluto Y - Blog](http://www.pluto-y.com)
+
 [Sina Weibo](http://weibo.com/plutoy0504)
 
 ### SlideMenuControllerSwift
 [Yuji Hato](https://github.com/dekatotoro) 
+
 [Blog](http://buzzmemo.blogspot.jp/)
 
 ## License
 
 SlideMenuControllerOC is available under the MIT license. See the LICENSE file for more info.
-
 
