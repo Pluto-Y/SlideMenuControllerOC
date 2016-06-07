@@ -168,7 +168,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self addRightGestures];
 }
 
--(SlideMenuOption *)getOption {
+-(SlideMenuOption *)option {
     return options;
 }
 
