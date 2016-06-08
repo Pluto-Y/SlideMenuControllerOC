@@ -35,7 +35,7 @@ typedef enum {
 
 @interface SlideMenuOption : NSObject
 
-@property (assign, nonatomic) CGFloat leftViewWitdth;
+@property (assign, nonatomic) CGFloat leftViewWidth;
 @property (assign, nonatomic) CGFloat leftBezelWidth;
 @property (assign, nonatomic) CGFloat contentViewScale;
 @property (assign, nonatomic) CGFloat contentViewOpacity;

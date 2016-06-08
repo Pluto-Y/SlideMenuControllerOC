@@ -25,7 +25,7 @@ struct PanInfo {
 -(instancetype)init {
     self = [super init];
     if (self) {
-        _leftViewWitdth = 270;
+        _leftViewWidth = 270;
         _leftBezelWidth = 16.0;
         _contentViewScale = 0.96;
         _contentViewOpacity = 0.5;
@@ -143,7 +143,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self.view insertSubview:_opacityView atIndex:1];
     
     CGRect leftFrame = self.view.bounds;
-    leftFrame.size.width = options.leftViewWitdth;
+    leftFrame.size.width = options.leftViewWidth;
     leftFrame.origin.x = [self leftMinOrigin];
     CGFloat leftOffset = 0;
     leftFrame.origin.y = leftFrame.origin.y + leftOffset;
@@ -693,7 +693,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 -(void)changeLeftViewWidth:(CGFloat)width {
-    options.leftViewWitdth = width;
+    options.leftViewWidth = width;
     CGRect leftFrame = self.view.bounds;
     leftFrame.size.width = width;
     leftFrame.origin.x = [self leftMinOrigin];
@@ -733,7 +733,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 -(CGFloat)leftMinOrigin {
-    return -options.leftViewWitdth;
+    return -options.leftViewWidth;
 }
 
 -(CGFloat)rightMinOrigin {
