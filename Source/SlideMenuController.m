@@ -79,6 +79,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
         _leftContainerView = [UIView new];
         _rightContainerView = [UIView new];
         options = [[SlideMenuOption alloc] init];
+        [options addObserver:self forKeyPath:@"leftViewWitdth" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -174,6 +175,28 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 
 -(void)setOption:(SlideMenuOption *)option {
     options = option;
+    [options addObserver:self forKeyPath:@"leftViewWitdth" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if (object == options) {
+        if ([keyPath isEqualToString:@"leftViewWitdth"]) {
+            CGRect leftFrame = _leftContainerView.frame;
+            NSNumber *newWidth = [change objectForKey:NSKeyValueChangeNewKey];
+            leftFrame.size.width = [newWidth floatValue];
+            _leftContainerView.frame = leftFrame;
+            return;
+        }
+        
+        if ([keyPath isEqualToString:@"rightViewWidth"]) {
+            CGRect rightFrame = _rightContainerView.frame;
+            NSNumber *newWidth = [change objectForKey:NSKeyValueChangeNewKey];
+            rightFrame.size.width = [newWidth floatValue];
+            _rightContainerView.frame = rightFrame;
+            return;
+        }
+    }
 }
 
 
