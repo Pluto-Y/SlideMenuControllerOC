@@ -61,6 +61,7 @@ static CGPoint RPSStartPointOfPan = {0,0};
 static BOOL RPSWasOpenAtStartOfPan = NO;
 static BOOL RPSWasHiddenAtStartOfPan = NO;
 static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
+static void *SlideViewObserverContext = @"SlideMenuOptionsSlideViewContext";
 
 @interface SlideMenuController () {
 
@@ -79,7 +80,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
         _leftContainerView = [UIView new];
         _rightContainerView = [UIView new];
         options = [[SlideMenuOption alloc] init];
-        [options addObserver:self forKeyPath:@"leftViewWitdth" options:NSKeyValueObservingOptionNew context:nil];
+        [self addSlideViewWidthObserver];
     }
     return self;
 }
@@ -121,6 +122,10 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
         [self initView];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self removeSlideViewWidthObserver];
 }
 
 -(void)awakeFromNib {
@@ -174,31 +179,87 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 -(void)setOption:(SlideMenuOption *)option {
+    [self removeSlideViewWidthObserver];
     options = option;
-    [options addObserver:self forKeyPath:@"leftViewWitdth" options:NSKeyValueObservingOptionNew context:nil];
+    [self _changeLeftViewWidth:option.leftViewWidth];
+    [self _changeRightViewWidth:option.rightViewWidth];
+    [self addSlideViewWidthObserver];
+}
+
+- (void)addSlideViewWidthObserver
+{
+    [options addObserver:self
+              forKeyPath:NSStringFromSelector(@selector(leftViewWidth))
+                 options:NSKeyValueObservingOptionNew
+                 context:SlideViewObserverContext];
+    [options addObserver:self
+              forKeyPath:NSStringFromSelector(@selector(rightViewWidth))
+                 options:NSKeyValueObservingOptionNew
+                 context:SlideViewObserverContext];
+}
+
+- (void)removeSlideViewWidthObserver
+{
+    @try {
+        [options removeObserver:self forKeyPath:NSStringFromSelector(@selector(leftViewWidth)) context:SlideViewObserverContext];
+        [options removeObserver:self forKeyPath:NSStringFromSelector(@selector(rightViewWidth)) context:SlideViewObserverContext];
+    }
+    @catch (NSException *exception) {
+        
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    if (object == options) {
-        if ([keyPath isEqualToString:@"leftViewWitdth"]) {
-            CGRect leftFrame = _leftContainerView.frame;
-            NSNumber *newWidth = [change objectForKey:NSKeyValueChangeNewKey];
-            leftFrame.size.width = [newWidth floatValue];
-            _leftContainerView.frame = leftFrame;
-            return;
+    if (context == SlideViewObserverContext) {
+        if (object == options) {
+            if ([keyPath isEqualToString:NSStringFromSelector(@selector(leftViewWidth))]) {
+                [self handleLeftViewChange:change];
+                return;
+            }
+            
+            if ([keyPath isEqualToString:NSStringFromSelector(@selector(rightViewWidth))]) {
+                [self handleRightViewChange:change];
+                return;
+            }
         }
-        
-        if ([keyPath isEqualToString:@"rightViewWidth"]) {
-            CGRect rightFrame = _rightContainerView.frame;
-            NSNumber *newWidth = [change objectForKey:NSKeyValueChangeNewKey];
-            rightFrame.size.width = [newWidth floatValue];
-            _rightContainerView.frame = rightFrame;
-            return;
-        }
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
+- (void)handleLeftViewChange:(NSDictionary<NSString *, id> *)change
+{
+    NSNumber *newWidth = [change objectForKey:NSKeyValueChangeNewKey];
+    
+    [self _changeLeftViewWidth:newWidth.floatValue];
+    
+}
+
+- (void)handleRightViewChange:(NSDictionary<NSString *,id> *)change
+{
+    NSNumber *newWidth = [change objectForKey:NSKeyValueChangeNewKey];
+    
+    [self _changeRightViewWidth:newWidth.floatValue];
+    
+}
+
+//- (void)changeLeftViewFrameWithWidth:(CGFloat)width
+//{
+//    CGRect frame = _leftContainerView.frame;
+//    frame.origin.x = [self leftMinOrigin];
+//    frame.size.width = width;
+//    _leftContainerView.frame = frame;
+//}
+//
+//- (void)changeRightViewFrameWithWidth:(CGFloat)width
+//{
+//    CGRect frame = _rightContainerView.frame;
+//    frame.origin.x = [self rightMinOrigin];
+//    frame.size.width = width;
+//    _rightContainerView.frame = frame;
+//}
 
 //-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
 //    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -614,6 +675,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     CGFloat finalXOrigin = [self leftMinOrigin];
     
     CGRect frame = _leftContainerView.frame;
+    
     frame.origin.x = finalXOrigin;
     
     NSTimeInterval duration = options.animationDuration;
@@ -717,6 +779,9 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 
 -(void)changeLeftViewWidth:(CGFloat)width {
     options.leftViewWidth = width;
+}
+
+- (void)_changeLeftViewWidth:(CGFloat)width {
     CGRect leftFrame = self.view.bounds;
     leftFrame.size.width = width;
     leftFrame.origin.x = [self leftMinOrigin];
@@ -727,14 +792,17 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 -(void)changeRightViewWidth:(CGFloat)width {
-    options.rightBezelWidth = width;
+    options.rightViewWidth = width;
+}
+
+- (void)_changeRightViewWidth:(CGFloat)width {
     CGRect rightFrame = self.view.bounds;
     rightFrame.size.width = width;
     rightFrame.origin.x = [self rightMinOrigin];
     CGFloat rightOffset = 0;
     rightFrame.origin.y = rightFrame.origin.y + rightOffset;
     rightFrame.size.height = rightFrame.size.height - rightOffset;
-    _leftContainerView.frame = rightFrame;
+    _rightContainerView.frame = rightFrame;
 }
 
 -(void)changeLeftViewController:(UIViewController *)newLeftController close:(BOOL) close {
