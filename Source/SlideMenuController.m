@@ -123,6 +123,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 -(void)awakeFromNib {
+    [super awakeFromNib];
     [self initView];
 }
 
