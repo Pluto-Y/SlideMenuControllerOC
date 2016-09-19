@@ -167,6 +167,10 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     
     [self addLeftGestures];
     [self addRightGestures];
+
+    [self setUpViewController:_mainContainerView targetViewController:_mainViewController];
+    [self setUpViewController:_leftContainerView targetViewController:_leftViewController];
+    [self setUpViewController:_rightContainerView targetViewController:_rightViewController];
 }
 
 -(SlideMenuOption *)option {
@@ -230,12 +234,6 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
         return [_mainViewController supportedInterfaceOrientations];
     }
     return UIInterfaceOrientationMaskAll;
-}
-
--(void)viewWillLayoutSubviews {
-    [self setUpViewController:_mainContainerView targetViewController:_mainViewController];
-    [self setUpViewController:_leftContainerView targetViewController:_leftViewController];
-    [self setUpViewController:_rightContainerView targetViewController:_rightViewController];
 }
 
 -(void)openLeft {
