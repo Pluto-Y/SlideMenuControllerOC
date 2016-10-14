@@ -380,7 +380,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan: {
-            if (LPSLastState != UIGestureRecognizerStateEnded) {
+            if (LPSLastState != UIGestureRecognizerStateEnded && LPSLastState != UIGestureRecognizerStateCancelled) {
                 return;
             }
             
@@ -419,6 +419,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
             [self applyLeftContentViewScale];
             break;
         }
+        case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
             if (LPSLastState != UIGestureRecognizerStateChanged) {
                 return;
@@ -458,7 +459,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan: {
-            if (RPSLastState != UIGestureRecognizerStateEnded) {
+            if (RPSLastState != UIGestureRecognizerStateEnded && RPSLastState != UIGestureRecognizerStateCancelled) {
                 return;
             }
             
@@ -498,6 +499,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
             NSLog(@"handleRightPanGesture --> Changed frame:%@", NSStringFromCGRect(_rightContainerView.frame));
             break;
         }
+        case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
             if (RPSLastState != UIGestureRecognizerStateChanged) {
                 return;
