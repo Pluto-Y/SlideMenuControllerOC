@@ -983,13 +983,6 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 @end
 
 
-@interface UIViewController(SlideMenuVC)
-
-@property (retain, nonatomic, readonly, getter=slideMenuController) SlideMenuController *slideMenuController;
-
-
-@end
-
 @implementation UIViewController(SlideMenuVC)
 
 - (SlideMenuController *)slideMenuController {

@@ -126,7 +126,7 @@ typedef enum {
 
 @interface UIViewController(SlideMenuVC)
 
-- (SlideMenuController *)slideMenuController;
+@property (retain, nonatomic, readonly) SlideMenuController *slideMenuController;
 
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage;
 
