@@ -8,10 +8,10 @@
 
 #import "SlideMenuController.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, SlideAction) {
     SlideActionOpen,
     SlideActionClose
-}SlideAction;
+};
 
 struct PanInfo {
     SlideAction action;
@@ -22,7 +22,7 @@ struct PanInfo {
 @implementation SlideMenuOption
 
 
--(instancetype)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _leftViewWidth = 270;
@@ -63,8 +63,6 @@ static BOOL RPSWasHiddenAtStartOfPan = NO;
 static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 
 @interface SlideMenuController () {
-
-    
     SlideMenuOption *options;
 }
 
@@ -72,7 +70,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 
 @implementation SlideMenuController
 
--(instancetype)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _mainContainerView = [UIView new];
@@ -83,15 +81,15 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return self;
 }
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 }
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [super initWithCoder:aDecoder];
 }
 
--(instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController {
+- (instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController {
     self = [self init];
     if (self) {
         _mainViewController = tMainController;
@@ -101,7 +99,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return self;
 }
 
--(instancetype)initWithMainViewController:(UIViewController *)tMainController rightMenuViewController:(UIViewController *)tRightMenuController {
+- (instancetype)initWithMainViewController:(UIViewController *)tMainController rightMenuViewController:(UIViewController *)tRightMenuController {
     self = [self init];
     if (self) {
         _mainViewController = tMainController;
@@ -111,7 +109,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return self;
 }
 
--(instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController rightMenuViewController:(UIViewController *)tRightMenuController {
+- (instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController rightMenuViewController:(UIViewController *)tRightMenuController {
     self = [self init];
     if (self) {
         _mainViewController = tMainController;
@@ -122,11 +120,12 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return self;
 }
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
+    [super awakeFromNib];
     [self initView];
 }
 
--(void)initView {
+- (void)initView {
     _mainContainerView = [[UIView alloc] initWithFrame:self.view.bounds];
     _mainContainerView.backgroundColor = [UIColor clearColor];
     _mainContainerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -168,18 +167,18 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self addRightGestures];
 }
 
--(SlideMenuOption *)option {
+- (SlideMenuOption *)option {
     return options;
 }
 
--(void)setOption:(SlideMenuOption *)option {
+- (void)setOption:(SlideMenuOption *)option {
     options = option;
 }
 
 
-//-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
 //    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
--(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     _mainContainerView.transform = CGAffineTransformMakeScale(1.0, 1.0);
     _leftContainerView.hidden = YES;
@@ -205,7 +204,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     [self closeLeftNonAnimation];
     [self closeRightNonAnimation];
@@ -224,20 +223,20 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
--(UIInterfaceOrientationMask)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if (_mainViewController != nil) {
         return [_mainViewController supportedInterfaceOrientations];
     }
     return UIInterfaceOrientationMaskAll;
 }
 
--(void)viewWillLayoutSubviews {
+- (void)viewWillLayoutSubviews {
     [self setUpViewController:_mainContainerView targetViewController:_mainViewController];
     [self setUpViewController:_leftContainerView targetViewController:_leftViewController];
     [self setUpViewController:_rightContainerView targetViewController:_rightViewController];
 }
 
--(void)openLeft {
+- (void)openLeft {
     if (_leftViewController == nil) {
         return;
     }
@@ -257,7 +256,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self track:TrackActionLeftTapOpen];
 }
 
--(void)openRight {
+- (void)openRight {
     if (_rightViewController == nil) {
         return;
     }
@@ -275,7 +274,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self track:TrackActionRightTapOpen];
 }
 
--(void)closeLeft {
+- (void)closeLeft {
     if (_leftViewController == nil) {
         return;
     }
@@ -289,7 +288,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self setCloseWindowLebel];
 }
 
--(void)closeRight {
+- (void)closeRight {
     if (_rightViewController == nil) {
         return;
     }
@@ -303,7 +302,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self setCloseWindowLebel];
 }
 
--(void)addLeftGestures {
+- (void)addLeftGestures {
     if (_leftViewController != nil) {
         if (self.leftPanGesture == nil) {
             self.leftPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeftPanGesture:)];
@@ -319,7 +318,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)addRightGestures {
+- (void)addRightGestures {
     if (_rightViewController != nil) {
         if (self.rightPanGesture == nil) {
             self.rightPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightPanGesture:)];
@@ -335,7 +334,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)removeLeftGestures {
+- (void)removeLeftGestures {
     if (self.leftPanGesture != nil) {
         [self.view removeGestureRecognizer:self.leftPanGesture];
         self.leftPanGesture = nil;
@@ -347,7 +346,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)removeRightGestures {
+- (void)removeRightGestures {
     if (self.rightPanGesture != nil) {
         [self.view removeGestureRecognizer:self.rightPanGesture];
         self.rightPanGesture = nil;
@@ -359,18 +358,18 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(BOOL)isTagetViewController {
+- (BOOL)isTagetViewController {
     // Function to determine the target ViewController
     // Please to override it if necessary
     return YES;
 }
 
--(void)track:(TrackAction)action {
+- (void)track:(TrackAction)action {
     // function is for tracking
     // Please to override it if necessary
 }
 
--(void)handleLeftPanGesture:(UIPanGestureRecognizer *)panGesture {
+- (void)handleLeftPanGesture:(UIPanGestureRecognizer *)panGesture {
     if (![self isTagetViewController]) {
         return;
     }
@@ -448,7 +447,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     LPSLastState = panGesture.state;
 }
 
--(void)handleRightPanGesture:(UIPanGestureRecognizer *)panGesture {
+- (void)handleRightPanGesture:(UIPanGestureRecognizer *)panGesture {
     if (![self isTagetViewController]) {
         return;
     }
@@ -526,7 +525,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     RPSLastState = panGesture.state;
 }
 
--(void)openLeftWithVelocity:(CGFloat)velocity {
+- (void)openLeftWithVelocity:(CGFloat)velocity {
     CGFloat xOrigin = _leftContainerView.frame.origin.x;
     
     CGFloat finalXOrigin = 0.0;
@@ -556,7 +555,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }];
 }
 
--(void)openRightWithVelocity:(CGFloat)velocity {
+- (void)openRightWithVelocity:(CGFloat)velocity {
     CGFloat xOrigin = _rightContainerView.frame.origin.x;
     
     CGFloat finalXOrigin = CGRectGetWidth(self.view.bounds) - _rightContainerView.frame.size.width;
@@ -586,7 +585,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }];
 }
 
--(void)closeLeftWithVelocity:(CGFloat) velocity {
+- (void)closeLeftWithVelocity:(CGFloat) velocity {
     CGFloat xOrigin = _leftContainerView.frame.origin.x;
     CGFloat finalXOrigin = [self leftMinOrigin];
     
@@ -614,7 +613,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }];
 }
 
--(void)closeRightWithVelocity:(CGFloat) velocity {
+- (void)closeRightWithVelocity:(CGFloat) velocity {
     CGFloat xOrigin = _rightContainerView.frame.origin.x;
     CGFloat finalXOrigin = CGRectGetWidth(self.view.bounds);
     
@@ -642,7 +641,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }];
 }
 
--(void)toggleLeft {
+- (void)toggleLeft {
     if ([self isLeftOpen]) {
         [self closeLeft];
         [self setCloseWindowLebel];
@@ -652,15 +651,15 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(BOOL)isLeftOpen {
+- (BOOL)isLeftOpen {
     return _leftViewController != nil && _leftContainerView.frame.origin.x == 0.0;
 }
 
--(BOOL)isLeftHidden {
+- (BOOL)isLeftHidden {
     return _leftContainerView.frame.origin.x <= [self leftMinOrigin];
 }
 
--(void)toggleRight {
+- (void)toggleRight {
     if ([self isRightOpen]) {
         [self closeRight];
         [self setCloseWindowLebel];
@@ -670,19 +669,19 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(BOOL)isRightOpen {
+- (BOOL)isRightOpen {
     return _rightViewController != nil && _rightContainerView.frame.origin.x == CGRectGetWidth(self.view.bounds) - _rightContainerView.frame.size.width;
 }
 
--(BOOL)isRightHidden {
+- (BOOL)isRightHidden {
     return _rightContainerView.frame.origin.x >= CGRectGetWidth(self.view.bounds);
 }
 
--(void)setPanFromBezel:(BOOL)panFromBezel {
+- (void)setPanFromBezel:(BOOL)panFromBezel {
     options.panFromBezel = panFromBezel;
 }
 
--(void)changeMainViewController:(UIViewController *)newMainController close:(BOOL)close {
+- (void)changeMainViewController:(UIViewController *)newMainController close:(BOOL)close {
     [self removeViewController:_mainViewController];
     _mainViewController = newMainController;
     [self setUpViewController:_mainContainerView targetViewController:_mainViewController];
@@ -692,7 +691,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)changeLeftViewWidth:(CGFloat)width {
+- (void)changeLeftViewWidth:(CGFloat)width {
     options.leftViewWidth = width;
     CGRect leftFrame = self.view.bounds;
     leftFrame.size.width = width;
@@ -703,7 +702,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     _leftContainerView.frame = leftFrame;
 }
 
--(void)changeRightViewWidth:(CGFloat)width {
+- (void)changeRightViewWidth:(CGFloat)width {
     options.rightBezelWidth = width;
     CGRect rightFrame = self.view.bounds;
     rightFrame.size.width = width;
@@ -714,7 +713,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     _leftContainerView.frame = rightFrame;
 }
 
--(void)changeLeftViewController:(UIViewController *)newLeftController close:(BOOL) close {
+- (void)changeLeftViewController:(UIViewController *)newLeftController close:(BOOL) close {
     [self removeViewController:_leftViewController];
     _leftViewController = newLeftController;
     [self setUpViewController:_leftContainerView targetViewController:_leftViewController];
@@ -723,7 +722,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)changeRightViewController:(UIViewController *)newRightController close:(BOOL) close {
+- (void)changeRightViewController:(UIViewController *)newRightController close:(BOOL) close {
     [self removeViewController:_rightViewController];
     _rightViewController = newRightController;
     [self setUpViewController:_rightContainerView targetViewController:_rightViewController];
@@ -732,15 +731,15 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(CGFloat)leftMinOrigin {
+- (CGFloat)leftMinOrigin {
     return -options.leftViewWidth;
 }
 
--(CGFloat)rightMinOrigin {
+- (CGFloat)rightMinOrigin {
     return CGRectGetWidth(self.view.bounds);
 }
 
--(struct PanInfo)panLeftResultInfoForVelocity:(CGPoint)velocity {
+- (struct PanInfo)panLeftResultInfoForVelocity:(CGPoint)velocity {
     CGFloat thresholdVelocity = 1000.0;
     CGFloat pointOfNoReturn = floor([self leftMinOrigin]) + options.pointOfNoReturnWidth;
     CGFloat leftOrigin = _leftContainerView.frame.origin.x;
@@ -757,7 +756,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return panInfo;
 }
 
--(struct PanInfo)panRightResultInfoForVelocity:(CGPoint)velocity {
+- (struct PanInfo)panRightResultInfoForVelocity:(CGPoint)velocity {
     CGFloat thresholdVelocity = -1000;
     CGFloat pointOfNoReturn = floor(CGRectGetWidth(self.view.bounds)) - options.pointOfNoReturnWidth;
     CGFloat rightOrigin = _rightContainerView.frame.origin.x;
@@ -773,7 +772,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return panInfo;
 }
 
--(CGRect)applyLeftTranslation:(CGPoint)translation toFrame:(CGRect)frame {
+- (CGRect)applyLeftTranslation:(CGPoint)translation toFrame:(CGRect)frame {
     CGFloat newOrigin = frame.origin.x;
     newOrigin += translation.x;
     CGFloat minOrigin = [self leftMinOrigin];
@@ -788,7 +787,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return newFrame;
 }
 
--(CGRect)applyRightTranslation:(CGPoint)translation toFrame:(CGRect)frame {
+- (CGRect)applyRightTranslation:(CGPoint)translation toFrame:(CGRect)frame {
     CGFloat newOrigin = frame.origin.x;
     newOrigin += translation.x;
     CGFloat minOrigin = [self rightMinOrigin];
@@ -803,43 +802,43 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return newFrame;
 }
 
--(CGFloat)getOpenedLeftRatio {
+- (CGFloat)getOpenedLeftRatio {
     CGFloat width = _leftContainerView.frame.size.width;
     CGFloat currentPosition = _leftContainerView.frame.origin.x - [self leftMinOrigin];
     return currentPosition / width;
 }
 
--(CGFloat)getOpenedRightRatio {
+- (CGFloat)getOpenedRightRatio {
     CGFloat width = _rightContainerView.frame.size.width;
     CGFloat currentPosition = _rightContainerView.frame.origin.x;
-    return -(currentPosition - CGRectGetWidth(self.view.bounds))/width;
+    return - (currentPosition - CGRectGetWidth(self.view.bounds))/width;
 }
 
--(void)applyLeftOpacity {
+- (void)applyLeftOpacity {
     CGFloat openedLeftRatio = [self getOpenedLeftRatio];
     CGFloat opacity = options.contentViewOpacity * openedLeftRatio;
     _opacityView.layer.opacity = opacity;
 }
 
--(void)applyRightOpacity {
+- (void)applyRightOpacity {
     CGFloat openedRightRatio = [self getOpenedRightRatio];
     CGFloat opacity = options.contentViewOpacity * openedRightRatio;
     _opacityView.layer.opacity = opacity;
 }
 
--(void)applyLeftContentViewScale {
+- (void)applyLeftContentViewScale {
     CGFloat openedLeftRadio = [self getOpenedLeftRatio];
     CGFloat scale = 1.0 - ((1.0 - options.contentViewScale) * openedLeftRadio);
     _mainContainerView.transform = CGAffineTransformMakeScale(scale, scale);
 }
 
--(void)applyRightContentViewScale {
+- (void)applyRightContentViewScale {
     CGFloat openedRightRatio = [self getOpenedRightRatio];
     CGFloat scale = 1.0 - ((1.0 - options.contentViewScale) * openedRightRatio);
     _mainContainerView.transform = CGAffineTransformMakeScale(scale, scale);
 }
 
--(void)addShadowToView:(UIView *)targetContainerView {
+- (void)addShadowToView:(UIView *)targetContainerView {
     targetContainerView.layer.masksToBounds = NO;
     targetContainerView.layer.shadowOffset = options.shadowOffset;
     targetContainerView.layer.shadowOpacity = options.shadowOpacity;
@@ -848,28 +847,28 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     
 }
 
--(void)removeShadow:(UIView *)targetContainerView {
+- (void)removeShadow:(UIView *)targetContainerView {
     targetContainerView.layer.masksToBounds = YES;
     _mainContainerView.layer.opacity = 1.0;
 }
 
--(void)removeContentOpacity {
+- (void)removeContentOpacity {
     _opacityView.layer.opacity = 0.0;
 }
 
--(void)addContentOpacity {
+- (void)addContentOpacity {
     _opacityView.layer.opacity = options.contentViewOpacity;
 }
 
--(void)disableContentInteraction {
+- (void)disableContentInteraction {
     _mainContainerView.userInteractionEnabled = NO;
 }
 
--(void)enableContentInteraction {
+- (void)enableContentInteraction {
     _mainContainerView.userInteractionEnabled = YES;
 }
 
--(void)setOpenWindowLevel {
+- (void)setOpenWindowLevel {
     if (options.hideStatusBar) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([UIApplication sharedApplication].keyWindow != nil) {
@@ -879,7 +878,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)setCloseWindowLebel {
+- (void)setCloseWindowLebel {
     if (options.hideStatusBar) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([UIApplication sharedApplication].keyWindow != nil) {
@@ -889,7 +888,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)setUpViewController:(UIView *)targetView targetViewController:(UIViewController *)targetViewController {
+- (void)setUpViewController:(UIView *)targetView targetViewController:(UIViewController *)targetViewController {
     if (targetViewController != nil) {
         [self addChildViewController:targetViewController];
         targetViewController.view.frame = targetView.bounds;
@@ -898,7 +897,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)removeViewController:(UIViewController *)viewController {
+- (void)removeViewController:(UIViewController *)viewController {
     if (viewController != nil) {
         [viewController willMoveToParentViewController:nil];
         [viewController.view removeFromSuperview];
@@ -906,7 +905,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     }
 }
 
--(void)closeLeftNonAnimation {
+- (void)closeLeftNonAnimation {
     [self setCloseWindowLebel];
     CGFloat finalXOrigin = [self leftMinOrigin];
     CGRect frame = _leftContainerView.frame;
@@ -918,7 +917,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     [self enableContentInteraction];
 }
 
--(void)closeRightNonAnimation {
+- (void)closeRightNonAnimation {
     [self setCloseWindowLebel];
     CGFloat finalXOrigin = CGRectGetWidth(self.view.bounds);
     CGRect frame = _rightContainerView.frame;
@@ -931,7 +930,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     CGPoint point = [touch locationInView:self.view];
     if (gestureRecognizer == _leftPanGesture) {
         return [self slideLeftForGestureRecognizer:gestureRecognizer inPoint:point];
@@ -945,15 +944,15 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return YES;
 }
 
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return options.simultaneousGestureRecognizers;
 }
 
--(BOOL)slideLeftForGestureRecognizer:(UIGestureRecognizer *)gesture inPoint:(CGPoint)point {
+- (BOOL)slideLeftForGestureRecognizer:(UIGestureRecognizer *)gesture inPoint:(CGPoint)point {
     return [self isLeftOpen] || (options.panFromBezel && [self isLeftPointContainedWithinBezelRect:point]);
 }
 
--(BOOL)isLeftPointContainedWithinBezelRect:(CGPoint)point {
+- (BOOL)isLeftPointContainedWithinBezelRect:(CGPoint)point {
     CGRect leftBezelRect = CGRectZero;
     CGRect tempRect = CGRectZero;
     CGFloat bezelWidth = CGRectGetWidth(self.view.bounds) - options.leftBezelWidth;
@@ -961,15 +960,15 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return CGRectContainsPoint(leftBezelRect, point);
 }
 
--(BOOL)isPointContainedWithinLeftRect:(CGPoint)point {
+- (BOOL)isPointContainedWithinLeftRect:(CGPoint)point {
     return CGRectContainsPoint(_leftContainerView.frame, point);;
 }
 
--(BOOL)slideRightViewForGestureRecognizer:(UIGestureRecognizer *)gesture withTouchPoint:(CGPoint)point {
+- (BOOL)slideRightViewForGestureRecognizer:(UIGestureRecognizer *)gesture withTouchPoint:(CGPoint)point {
     return [self isRightOpen] || (options.rightPanFromBezel && [self isRightPointContainedWithinBezelRect:point]);
 }
 
--(BOOL)isRightPointContainedWithinBezelRect:(CGPoint)point {
+- (BOOL)isRightPointContainedWithinBezelRect:(CGPoint)point {
     CGRect rightBezelRect = CGRectZero;
     CGRect tempRect = CGRectZero;
     CGFloat bezelWidth = CGRectGetWidth(self.view.bounds) - options.rightBezelWidth;
@@ -977,7 +976,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return CGRectContainsPoint(rightBezelRect, point);
 }
 
--(BOOL)isPointContainedWithinRightRect:(CGPoint)point {
+- (BOOL)isPointContainedWithinRightRect:(CGPoint)point {
     return CGRectContainsPoint(_rightContainerView.frame, point);
 }
 
@@ -993,7 +992,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 
 @implementation UIViewController(SlideMenuVC)
 
--(SlideMenuController *)slideMenuController {
+- (SlideMenuController *)slideMenuController {
     UIViewController *controller = self;
     while (controller != nil) {
         if ([controller isKindOfClass:[SlideMenuController class]]) {
@@ -1004,53 +1003,53 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     return nil;
 }
 
--(void)addLeftBarButtonWithImage:(UIImage *)buttonImage {
+- (void)addLeftBarButtonWithImage:(UIImage *)buttonImage {
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStyleBordered target:self action:@selector(toggleLeft)];
     self.navigationItem.leftBarButtonItem = leftButton;
 }
 
--(void)addRightBarButtonWithImage:(UIImage *)buttonImage {
+- (void)addRightBarButtonWithImage:(UIImage *)buttonImage {
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStyleBordered target:self action:@selector(toggleRight)];
     self.navigationItem.rightBarButtonItem = leftButton;
 }
 
--(void)toggleLeft {
+- (void)toggleLeft {
     if (self.slideMenuController != nil) {
         [self.slideMenuController toggleLeft];
     }
 }
 
--(void)toggleRight {
+- (void)toggleRight {
     if (self.slideMenuController != nil) {
         [self.slideMenuController toggleRight];
     }
 }
 
--(void)openLeft {
+- (void)openLeft {
     if (self.slideMenuController != nil) {
         [self.slideMenuController openLeft];
     }
 }
 
--(void)openRight {
+- (void)openRight {
     if (self.slideMenuController != nil) {
         [self.slideMenuController openRight];
     }
 }
 
--(void)closeLeft {
+- (void)closeLeft {
     if (self.slideMenuController != nil) {
         [self.slideMenuController closeLeft];
     }
 }
 
--(void)closeRight {
+- (void)closeRight {
     if (self.slideMenuController != nil) {
         [self.slideMenuController closeRight];
     }
 }
 
--(void)addPriorityToMenuGesture:(UIScrollView *) targetScrollView {
+- (void)addPriorityToMenuGesture:(UIScrollView *) targetScrollView {
     if (self.slideMenuController != nil) {
         NSArray *recognizers = self.slideMenuController.view.gestureRecognizers;
         for (UIGestureRecognizer *recognizer in recognizers) {

@@ -22,14 +22,14 @@ typedef enum {
 @protocol SlideMenuControllerDelegate <NSObject>
 
 @optional
--(void)leftWillOpen;
--(void)leftDidOpen;
--(void)leftWillClose;
--(void)leftDidClose;
--(void)rightWillOpen;
--(void)rightDidOpen;
--(void)rightWillClose;
--(void)rightDidClose;
+- (void)leftWillOpen;
+- (void)leftDidOpen;
+- (void)leftWillClose;
+- (void)leftDidClose;
+- (void)rightWillOpen;
+- (void)rightDidOpen;
+- (void)rightWillClose;
+- (void)rightDidClose;
 
 @end
 
@@ -73,77 +73,77 @@ typedef enum {
 @property (retain, nonatomic) UIViewController *rightViewController;
 
 
--(instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController;
+- (instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController;
 
--(instancetype)initWithMainViewController:(UIViewController *)tMainController rightMenuViewController:(UIViewController *)tRightMenuController;
+- (instancetype)initWithMainViewController:(UIViewController *)tMainController rightMenuViewController:(UIViewController *)tRightMenuController;
 
--(instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController rightMenuViewController:(UIViewController *)tRightMenuController;
+- (instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController rightMenuViewController:(UIViewController *)tRightMenuController;
 
--(BOOL)isTagetViewController;
+- (BOOL)isTagetViewController;
 
--(void)addLeftGestures;
+- (void)addLeftGestures;
 
--(void)addRightGestures;
+- (void)addRightGestures;
 
--(void)removeLeftGestures;
+- (void)removeLeftGestures;
 
--(void)removeRightGestures;
+- (void)removeRightGestures;
 
--(void)track:(TrackAction)action;
+- (void)track:(TrackAction)action;
 
--(void)openLeftWithVelocity:(CGFloat) velocity;
+- (void)openLeftWithVelocity:(CGFloat) velocity;
 
--(void)openRightWithVelocity:(CGFloat) velocity;
+- (void)openRightWithVelocity:(CGFloat) velocity;
 
--(void)closeLeftWithVelocity:(CGFloat) velocity;
+- (void)closeLeftWithVelocity:(CGFloat) velocity;
 
--(void)closeRightWithVelocity:(CGFloat) velocity;
+- (void)closeRightWithVelocity:(CGFloat) velocity;
 
--(BOOL)isLeftOpen;
+- (BOOL)isLeftOpen;
 
--(BOOL)isLeftHidden;
+- (BOOL)isLeftHidden;
 
--(BOOL)isRightOpen;
+- (BOOL)isRightOpen;
 
--(BOOL)isRightHidden;
+- (BOOL)isRightHidden;
 
--(void)changeMainViewController:(UIViewController *)newMainController close:(BOOL)close;
+- (void)changeMainViewController:(UIViewController *)newMainController close:(BOOL)close;
 
--(void)changeLeftViewWidth:(CGFloat) width;
+- (void)changeLeftViewWidth:(CGFloat) width;
 
--(void)changeRightViewWidth:(CGFloat) width;
+- (void)changeRightViewWidth:(CGFloat) width;
 
--(void)changeLeftViewController:(UIViewController *)newLeftController close:(BOOL) close;
+- (void)changeLeftViewController:(UIViewController *)newLeftController close:(BOOL) close;
 
--(void)changeRightViewController:(UIViewController *)newRightController close:(BOOL) close;
+- (void)changeRightViewController:(UIViewController *)newRightController close:(BOOL) close;
 
--(void)closeLeftNonAnimation;
+- (void)closeLeftNonAnimation;
 
--(void)closeRightNonAnimation;
+- (void)closeRightNonAnimation;
 
 @end
 
 
 @interface UIViewController(SlideMenuVC)
 
--(SlideMenuController *)slideMenuController;
+- (SlideMenuController *)slideMenuController;
 
--(void)addLeftBarButtonWithImage:(UIImage *)buttonImage;
+- (void)addLeftBarButtonWithImage:(UIImage *)buttonImage;
 
--(void)addRightBarButtonWithImage:(UIImage *)buttonImage;
+- (void)addRightBarButtonWithImage:(UIImage *)buttonImage;
 
--(void)toggleLeft;
+- (void)toggleLeft;
 
--(void)toggleRight;
+- (void)toggleRight;
 
--(void)openLeft;
+- (void)openLeft;
 
--(void)openRight;
+- (void)openRight;
 
--(void)closeLeft;
+- (void)closeLeft;
 
--(void)closeRight;
+- (void)closeRight;
 
--(void)addPriorityToMenuGesture:(UIScrollView *) targetScrollView;
+- (void)addPriorityToMenuGesture:(UIScrollView *) targetScrollView;
 
 @end
