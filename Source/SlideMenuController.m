@@ -531,6 +531,9 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     CGFloat finalXOrigin = 0.0;
     
     CGRect frame = _leftContainerView.frame;
+    frame.size.width = options.leftViewWidth;
+    _leftContainerView.frame = frame;
+    
     frame.origin.x = finalXOrigin;
     
     NSTimeInterval duration = options.animationDuration;
@@ -561,6 +564,9 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     CGFloat finalXOrigin = CGRectGetWidth(self.view.bounds) - _rightContainerView.frame.size.width;
     
     CGRect frame = _rightContainerView.frame;
+    frame.size.width = options.rightViewWidth;
+    _rightContainerView.frame = frame;
+    
     frame.origin.x = finalXOrigin;
     
     NSTimeInterval duration = options.animationDuration;
