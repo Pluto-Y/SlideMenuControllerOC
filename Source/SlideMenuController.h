@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
+typedef NS_ENUM(NSInteger, TrackAction) {
     TrackActionLeftTapOpen,
     TrackActionLeftTapClose,
     TrackActionLeftFlickOpen,
@@ -17,7 +17,7 @@ typedef enum {
     TrackActionRightTapClose,
     TrackActionRightFlickOpen,
     TrackActionRightFlickClose
-} TrackAction;
+};
 
 @protocol SlideMenuControllerDelegate <NSObject>
 
@@ -35,42 +35,42 @@ typedef enum {
 
 @interface SlideMenuOption : NSObject
 
-@property (assign, nonatomic) CGFloat leftViewWidth;
-@property (assign, nonatomic) CGFloat leftBezelWidth;
-@property (assign, nonatomic) CGFloat contentViewScale;
-@property (assign, nonatomic) CGFloat contentViewOpacity;
-@property (assign, nonatomic) CGFloat shadowOpacity;
-@property (assign, nonatomic) CGFloat shadowRadius;
-@property (assign, nonatomic) CGSize shadowOffset;
-@property (assign, nonatomic) BOOL panFromBezel;
-@property (assign, nonatomic) CGFloat animationDuration;
-@property (assign, nonatomic) CGFloat rightViewWidth;
-@property (assign, nonatomic) CGFloat rightBezelWidth;
-@property (assign, nonatomic) BOOL rightPanFromBezel;
-@property (assign, nonatomic) BOOL hideStatusBar;
-@property (assign, nonatomic) CGFloat pointOfNoReturnWidth;
-@property (assign, nonatomic) BOOL simultaneousGestureRecognizers;
-@property (retain, nonatomic) UIColor *opacityViewBackgroundColor;
+@property (nonatomic, assign) CGFloat leftViewWidth;
+@property (nonatomic, assign) CGFloat leftBezelWidth;
+@property (nonatomic, assign) CGFloat contentViewScale;
+@property (nonatomic, assign) CGFloat contentViewOpacity;
+@property (nonatomic, assign) CGFloat shadowOpacity;
+@property (nonatomic, assign) CGFloat shadowRadius;
+@property (nonatomic, assign) CGSize shadowOffset;
+@property (nonatomic, assign) BOOL panFromBezel;
+@property (nonatomic, assign) CGFloat animationDuration;
+@property (nonatomic, assign) CGFloat rightViewWidth;
+@property (nonatomic, assign) CGFloat rightBezelWidth;
+@property (nonatomic, assign) BOOL rightPanFromBezel;
+@property (nonatomic, assign) BOOL hideStatusBar;
+@property (nonatomic, assign) CGFloat pointOfNoReturnWidth;
+@property (nonatomic, assign) BOOL simultaneousGestureRecognizers;
+@property (nonatomic, retain) UIColor *opacityViewBackgroundColor;
 
 @end
 
 @interface SlideMenuController : UIViewController<UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) id<SlideMenuControllerDelegate> delegate;
+@property (nonatomic, weak) id<SlideMenuControllerDelegate> delegate;
 
-@property (retain, nonatomic) SlideMenuOption *option;
+@property (nonatomic, retain) SlideMenuOption *option;
 
-@property (retain, nonatomic) UIView *opacityView;
-@property (retain, nonatomic) UIView *mainContainerView;
-@property (retain, nonatomic) UIView *leftContainerView;
-@property (retain, nonatomic) UIView *rightContainerView;
-@property (retain, nonatomic) UIPanGestureRecognizer *leftPanGesture;
-@property (retain, nonatomic) UITapGestureRecognizer *leftTapGesture;
-@property (retain, nonatomic) UIPanGestureRecognizer *rightPanGesture;
-@property (retain, nonatomic) UITapGestureRecognizer *rightTapGesture;
-@property (retain, nonatomic) UIViewController *mainViewController;
-@property (retain, nonatomic) UIViewController *leftViewController;
-@property (retain, nonatomic) UIViewController *rightViewController;
+@property (nonatomic, retain) UIView *opacityView;
+@property (nonatomic, retain) UIView *mainContainerView;
+@property (nonatomic, retain) UIView *leftContainerView;
+@property (nonatomic, retain) UIView *rightContainerView;
+@property (nonatomic, retain) UIPanGestureRecognizer *leftPanGesture;
+@property (nonatomic, retain) UITapGestureRecognizer *leftTapGesture;
+@property (nonatomic, retain) UIPanGestureRecognizer *rightPanGesture;
+@property (nonatomic, retain) UITapGestureRecognizer *rightTapGesture;
+@property (nonatomic, retain) UIViewController *mainViewController;
+@property (nonatomic, retain) UIViewController *leftViewController;
+@property (nonatomic, retain) UIViewController *rightViewController;
 
 
 - (instancetype)initWithMainViewController:(UIViewController *)tMainController leftMenuViewController:(UIViewController *)tLeftMenuController;
@@ -126,7 +126,7 @@ typedef enum {
 
 @interface UIViewController(SlideMenuVC)
 
-@property (retain, nonatomic, readonly) SlideMenuController *slideMenuController;
+@property (nonatomic, retain, readonly) SlideMenuController *slideMenuController;
 
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage;
 
