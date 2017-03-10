@@ -710,7 +710,7 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
     CGFloat rightOffset = 0;
     rightFrame.origin.y = rightFrame.origin.y + rightOffset;
     rightFrame.size.height = rightFrame.size.height - rightOffset;
-    _leftContainerView.frame = rightFrame;
+    _rightContainerView.frame = rightFrame;
 }
 
 - (void)changeLeftViewController:(UIViewController *)newLeftController close:(BOOL) close {
