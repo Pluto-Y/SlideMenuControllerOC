@@ -997,12 +997,12 @@ static UIGestureRecognizerState RPSLastState = UIGestureRecognizerStateEnded;
 }
 
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage {
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStyleBordered target:self action:@selector(toggleLeft)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleLeft)];
     self.navigationItem.leftBarButtonItem = leftButton;
 }
 
 - (void)addRightBarButtonWithImage:(UIImage *)buttonImage {
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStyleBordered target:self action:@selector(toggleRight)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleRight)];
     self.navigationItem.rightBarButtonItem = leftButton;
 }
 
