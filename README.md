@@ -18,19 +18,19 @@ iOS Slide View based on iQON, Feedly, Google+, Ameba iPhone app.
 
 ![sample](Screenshots/SlideMenuControllerSwift3.gif)
 ___
-##Installation
+## Installation
 
-####CocoaPods
+#### CocoaPods
 ```
 pod 'SlideMenuControllerOC'
 ```
 
-####Manually
+#### Manually
 Add the `SlideMenuController.h` and `SlideMenuController.m` file to your project. 
 ___
-##Usage
+## Usage
 
-###Setup
+### Setup
 
 Add `#import "SlideMenuController.h"` in your file
 
@@ -50,7 +50,7 @@ In your app delegate:
 }
 ```
 
-####Storyboard Support
+#### Storyboard Support
 
 1. Inherit `SlideMenuController` and put UIViewController in a storyboard.
 2. Override `awakeFromNib`, then instantiate any view controllers
@@ -83,7 +83,7 @@ self.slideMenuController.option.contentViewScale = 0.5;
     
 ```
 
-###You can access from UIViewController
+### You can access from UIViewController
 
 ```objective-c
 self.slideMenuController
